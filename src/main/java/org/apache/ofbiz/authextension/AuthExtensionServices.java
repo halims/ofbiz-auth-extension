@@ -299,7 +299,15 @@ public class AuthExtensionServices {
                     
                     tenantInfo.put("organizationName", organizationName);
                     tenantInfo.put("organizationPartyId", partyId);
-                    tenantInfo.put("partyTypeId", partyGroup.getString("partyTypeId"));
+                    
+                    // Get partyTypeId from Party entity, not PartyGroup
+                    GenericValue party = EntityQuery.use(delegator)
+                        .from("Party")
+                        .where("partyId", partyId)
+                        .queryOne();
+                    if (party != null) {
+                        tenantInfo.put("partyTypeId", party.getString("partyTypeId"));
+                    }
                 }
                 
                 // Get party attributes
