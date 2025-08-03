@@ -1,0 +1,12 @@
+{
+    "status": "healthy",
+    "service": "ofbiz-auth-extension",
+    "version": "1.0",
+    "timestamp": "${groovy:new Date()}",
+    "endpoints": [
+        "/rest/services/getUserInfo",
+        "/rest/services/getUserWithTenant",
+        "/rest/services/getTenantInfo",
+        "/rest/services/validateUserCredentials"
+    ]
+}

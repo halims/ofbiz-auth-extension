@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<site-conf>
+    
+    <include location="component://common/webcommon/WEB-INF/common-controller.xml"/>
+    
+    <description>OFBiz Auth Extension REST API Controller</description>
+    
+    <!-- Event handlers -->
+    <handler name="service" type="request" class="org.apache.ofbiz.webapp.event.ServiceEventHandler"/>
+    
+    <!-- View handlers -->
+    <handler name="http" type="view" class="org.apache.ofbiz.webapp.view.HttpViewHandler"/>
+
+    <!-- REST Service Mappings -->
+    
+    <!-- Get User Info -->
+    <request-map uri="getUserInfo">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="getUserInfo"/>
+        <response name="success" type="view" value="http"/>
+        <response name="error" type="view" value="http"/>
+    </request-map>
+
+    <!-- Get User with Tenant -->
+    <request-map uri="getUserWithTenant">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="getUserWithTenant"/>
+        <response name="success" type="view" value="http"/>
+        <response name="error" type="view" value="http"/>
+    </request-map>
+
+    <!-- Get Tenant Info -->
+    <request-map uri="getTenantInfo">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="getTenantInfo"/>
+        <response name="success" type="view" value="http"/>
+        <response name="error" type="view" value="http"/>
+    </request-map>
+
+    <!-- Validate User Credentials -->
+    <request-map uri="validateUserCredentials">
+        <security https="true" auth="false"/>
+        <event type="service" invoke="validateUserCredentials"/>
+        <response name="success" type="view" value="http"/>
+        <response name="error" type="view" value="http"/>
+    </request-map>
+
+    <!-- Health check -->
+    <request-map uri="health">
+        <security https="false" auth="false"/>
+        <response name="success" type="view" value="health"/>
+    </request-map>
+
+    <!-- View mappings -->
+    <view-map name="health" type="http" page="component://ofbiz-auth-extension/config/health.json"/>
+
+</site-conf>
